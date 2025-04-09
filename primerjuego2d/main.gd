@@ -12,6 +12,8 @@ func game_over() -> void: #le damos condicion de derrota
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$Hub.show_game_over()
+	$Music.stop()
+	$DeathSound.play()
 
 func new_game(): # una de victoria
 	score = 0
@@ -20,6 +22,7 @@ func new_game(): # una de victoria
 	$Hub.update_score(score)
 	$Hub.show_message("Get Ready")
 	get_tree().call_group("mobs", "queue_free")
+	$Music.play()
 
 func _on_score_timer_timeout():
 	score += 1
