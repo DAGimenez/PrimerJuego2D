@@ -11,14 +11,19 @@ var score
 func game_over() -> void: #le damos condicion de derrota
 	$ScoreTimer.stop()
 	$MobTimer.stop()
+	$Hub.show_game_over()
 
 func new_game(): # una de victoria
 	score = 0
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
+	$Hub.update_score(score)
+	$Hub.show_message("Get Ready")
+	get_tree().call_group("mobs", "queue_free")
 
 func _on_score_timer_timeout():
 	score += 1
+	$Hub.update_score(score)
 	
 func _on_start_timer_timeout() :
 	
@@ -52,3 +57,4 @@ func _on_mob_timer_timeout(): # con estos metodos creamos todas las intancias ne
 
 func _ready(): # esto para iniciar el juego
 	pass
+	
